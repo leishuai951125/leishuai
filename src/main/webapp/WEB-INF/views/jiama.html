@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+
+        function jiami2(s1) {
+            var sum = 0;
+            for (i = 0; i < s1.length; i++) {
+                sum = sum + s1.charCodeAt(i);
+                sum = sum % 50;
+            }
+            var chars = new Array(10); //10位
+            var index = 0;
+            var flag = 1;
+            while (flag == 1) {
+                for (i = 0; i < s1.length && (flag == 1); i++) {
+                    if (i < s1.length / 2) {
+                        sum -= s1.charCodeAt(i);
+                        t = sum % 10;
+                        chars[index++] = (t * t) % 10
+                    }
+                    else {
+                        sum += s1.charCodeAt(i);
+                        t = sum % 10;
+                        chars[index++] = (t * t) % 10
+                    }
+                    if (index == 10) {
+                        flag = 0;
+                    }
+                }
+            }
+            return chars.join("");
+        }
+        function jiami(s1) {
+            var sum = 0;
+            for (i = 0; i < s1.length; i++) {
+                sum = sum + s1.charCodeAt(i);
+                sum = sum % 10;
+            }
+            var LONG=20; //加密后的长度
+            var chars = new Array(LONG); //10位
+            var index = 0;
+            var flag = 1;
+            while (flag == 1) {
+                for (i = 0; i < s1.length && (flag == 1); i++) {
+                    t = s1.charCodeAt(i) % 10 + index+sum;
+                    chars[index++] = (t * t+index) % 10;
+                    if (index == LONG)
+                        flag = 0;
+                }
+            }
+            return chars.join("");
+        }
+
+        function test() {
+            var yuanwen = document.getElementById('mingwen').value;
+            var body1 = document.getElementById("body1");
+            var miwen = jiami(yuanwen);
+            var i = 5;
+            while (i-- > 0) {
+                body1.innerHTML += '<div>' + yuanwen + " --->> " + miwen + '</div>';
+                yuanwen = miwen;
+                miwen = jiami(yuanwen);
+            }
+            body1.innerHTML += '<hr>'
+        }
+        function qingkong() {
+            var body1 = document.getElementById("body1");
+//            alert(body1)
+            body1.innerHTML = '';
+        }
+    </script>
+</head>
+<body>
+<h2>
+    明文：<input type="text" id="mingwen">
+    <input type="button" value="生成密文" onclick="test()">
+    <input type="button" value="清空" onclick="qingkong()">
+</h2>
+<div id="body1"></div>
+</body>
+</html>

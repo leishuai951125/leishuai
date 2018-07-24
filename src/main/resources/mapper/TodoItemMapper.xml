@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hd.dao.TodoItemMapper">
+    <select id="getAllTodoItem" resultType="TodoItem">
+        --         SELECT * FROM tb_user
+        SELECT * FROM  cux_todo_items ORDER BY last_update_date desc;
+    </select>
+    <select id="getAllTodoItemByUser" resultType="TodoItem" parameterType="Integer">
+        --         SELECT * FROM tb_user
+        SELECT * FROM  cux_todo_items WHERE user_id = #{user_id}
+        ORDER BY last_update_date desc;
+    </select>
+    <select id="getTodoItemById" resultType="TodoItem" parameterType="Integer">
+        SELECT * FROM cux_todo_items WHERE todo_item_id = #{todo_item_id}
+    </select>
+    <delete id="deleteTodoItemById" parameterType="Integer">
+        DELETE FROM cux_todo_items WHERE todo_item_id=#{todo_item_id}
+    </delete>
+    <insert id="addTodoItem" parameterType="TodoItem">
+        INSERT INTO cux_todo_items VALUES (
+        #{todo_item_id},#{user_id},#{todo_item_title},
+        #{todo_item_content},#{priority},now(),
+        now(),#{comments}
+        )
+    </insert>
+    <!--测试-->
+    <!--<insert id="addTodoItem" parameterType="TodoItem">-->
+        <!--INSERT INTO cux_todo_items VALUES (-->
+        <!--#{todo_item_id},#{user_id},#{todo_item_title},-->
+        <!--#{todo_item_content},#{priority},null,-->
+        <!--null,'日了狗'-->
+        <!--)-->
+    <!--</insert>-->
+    <update id="updateTodoItem" parameterType="TodoItem">
+        UPDATE cux_todo_items SET
+        todo_item_title=#{todo_item_title},
+        todo_item_content=#{todo_item_content},priority=#{priority},
+        comments=#{comments}
+--         ,last_update_date=now()
+        WHERE todo_item_id=#{todo_item_id}
+    </update>
+
+    <!--<select id="getUserByName" resultType="User" parameterType="String">-->
+        <!--SELECT * FROM CUX_USERS WHERE USER_NAME = #{user_name}-->
+    <!--</select>-->
+    <!--<delete id="deleteUserByName" parameterType="String">-->
+        <!--DELETE FROM cux_users WHERE USER_NAME = #{user_name}-->
+    <!--</delete>-->
+    <!--<insert id="addUser" parameterType="User">-->
+        <!--INSERT INTO cux_users VALUES ( #{user_id},#{user_name},#{password},#{sex},-->
+        <!--#{age},#{phone_number},#{creation_date},#{last_update_date},#comments )-->
+    <!--</insert>-->
+    <!--<update id="updateUser" parameterType="User">-->
+        <!--UPDATE cux_users SET user_id=#{user_id},user_name=#{user_name},password=#{password},-->
+        <!--sex=#{sex},age=#{age},phone_number=#{phone_number},creation_date=#{creation_date},-->
+        <!--last_update_date=#{last_update_date},comments=#{comments}-->
+    <!--</update>-->
+</mapper>

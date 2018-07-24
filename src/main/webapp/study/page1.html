@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="pub.js"></script><script>
+    function add() {
+        var iframe2=window.parent.document.getElementById("iframe2");
+        var d2=iframe2.contentWindow.document.getElementById("d2")
+        d2.innerHTML+='由page1追加 ';
+    }
+</script>
+    <base href="nihao/">
+</head>
+<a href="ni">nihao</a>
+<body>
+
+</body>
+</html>

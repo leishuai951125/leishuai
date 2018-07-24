@@ -14,8 +14,9 @@
 <body>
 This is test.jsp
 <c:forEach var="user" items="${users}">
-    ${user.id}
-    ${user.name}
+    <br>${user.user_id}<br>
+    ${user.user_name}<br>
+    ${user.last_update_date}<hr>
 </c:forEach>
 </body>
 </html>
